@@ -15,5 +15,5 @@
 🧠 Key Concepts
 - Making GET requests
 - Parsing HTML using BeautifulSoup
-- Extracting specific tags (e.g.,<h2>,<title>)
+- Extracting specific tags
 - Writing data to a file
