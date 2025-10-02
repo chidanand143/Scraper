@@ -1,15 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
-import time  # For good practice: always add a small delay
+import time  
 
-# --- Configuration ---
-# ⚠ Disclaimer: Always check a website's robots.txt and Terms of Service
-# before scraping. Use this practice site for safety and legality.
 TARGET_URL = 'http://quotes.toscrape.com/'
 OUTPUT_FILENAME = 'headlines.txt'
-
-
-# ---------------------
 
 def scrape_news_headlines(url):
     """
@@ -23,29 +17,21 @@ def scrape_news_headlines(url):
     """
     print(f"🚀 Attempting to fetch URL: {url}")
     try:
-        # 1. Use requests to fetch HTML
-        # Add a simple User-Agent header to mimic a real browser
+       
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         }
         response = requests.get(url, headers=headers, timeout=10)
-        response.raise_for_status()  # Raise HTTPError for bad responses (4xx or 5xx)
+        response.raise_for_status()  
 
-        # 2. Use BeautifulSoup to parse the HTML
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        # --- CRITICAL STEP: HTML TAG IDENTIFICATION ---
-        # The hint suggests using <h2> or <title> tags.
-        # For a real news site, you'd inspect the source to find the class
-        # of the element holding the headline (e.g., soup.find_all('h2', class_='headline-text')).
-        # For the demo site, the main text (quotes) is in a <span> with class 'text'.
-
         headlines = []
-        # Find all <span> tags with the class 'text'
+       
         text_elements = soup.find_all('span', class_='text')
 
         for element in text_elements:
-            # .get_text(strip=True) extracts the text and removes leading/trailing whitespace
+            
             headlines.append(element.get_text(strip=True))
 
         print(f"✅ Successfully found {len(headlines)} items.")
@@ -86,12 +72,9 @@ def main():
     # Introduce a small delay before scraping
     time.sleep(1)
 
-    # Scrape the data
     scraped_data = scrape_news_headlines(TARGET_URL)
-
-    # Save the data
     save_to_txt(scraped_data, OUTPUT_FILENAME)
 
-
 if __name__ == "__main__":
+
     main()
