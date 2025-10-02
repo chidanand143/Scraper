@@ -17,4 +17,3 @@
 - Parsing HTML using BeautifulSoup
 - Extracting specific tags (e.g., <h2>, <title>)
 - Writing data to a file
-
